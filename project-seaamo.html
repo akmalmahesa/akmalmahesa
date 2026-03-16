@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HealthTrack Case Study</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #080b14;
+      --bg-secondary: #0d1121;
+      --bg-card: #111827;
+      --text-primary: #f0f4ff;
+      --text-secondary: #9ba8c5;
+      --accent-blue: #4f8ef7;
+      --accent-purple: #a259ff;
+      --accent-cyan: #00d4ff;
+      --border: rgba(255,255,255,.08);
+      --shadow-card: 0 12px 34px rgba(0,0,0,.42);
+      --grad-main: linear-gradient(135deg, #4f8ef7 0%, #a259ff 100%);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(ellipse at top right, rgba(79,142,247,.14), transparent 45%),
+                  radial-gradient(ellipse at bottom left, rgba(162,89,255,.12), transparent 45%),
+                  var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(8,11,20,.72);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar .container {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand { font-weight: 800; text-decoration: none; color: var(--text-primary); }
+    .back {
+      text-decoration: none;
+      font-size: .9rem;
+      color: var(--accent-blue);
+      border: 1px solid rgba(79,142,247,.35);
+      border-radius: 999px;
+      padding: 10px 18px;
+      transition: .25s ease;
+    }
+    .back:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(79,142,247,.2); }
+
+    .hero {
+      padding: 90px 0 48px;
+    }
+
+    .hero-banner {
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      background: linear-gradient(145deg, #131b31, #0f1528);
+      padding: 42px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+
+    .hero-banner::before,
+    .hero-banner::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(8px);
+      pointer-events: none;
+    }
+
+    .hero-banner::before {
+      width: 240px;
+      height: 240px;
+      top: -80px;
+      right: -70px;
+      background: radial-gradient(circle, rgba(79,142,247,.35), transparent 70%);
+    }
+
+    .hero-banner::after {
+      width: 220px;
+      height: 220px;
+      bottom: -90px;
+      left: -80px;
+      background: radial-gradient(circle, rgba(162,89,255,.28), transparent 70%);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: .73rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.3rem);
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .hero-desc {
+      max-width: 700px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .meta-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      transition: .25s ease;
+    }
+
+    .meta-card:hover { border-color: rgba(79,142,247,.4); transform: translateY(-3px); }
+    .meta-label { font-size: .72rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: .08em; }
+    .meta-value { font-size: .95rem; font-weight: 600; margin-top: 4px; }
+
+    main { padding-bottom: 80px; }
+
+    .section-card {
+      margin-top: 22px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: var(--shadow-card);
+      transition: .25s ease;
+    }
+
+    .section-card:hover { transform: translateY(-2px); border-color: rgba(162,89,255,.34); }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      background: var(--grad-main);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    p { color: var(--text-secondary); }
+
+    ul {
+      color: var(--text-secondary);
+      padding-left: 18px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .step {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      background: rgba(255,255,255,.02);
+    }
+
+    .step strong { display: block; margin-bottom: 6px; font-size: .92rem; }
+    .step span { color: var(--text-secondary); font-size: .86rem; }
+
+    .final-grid {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .final-shot {
+      border: 1px solid rgba(79,142,247,.24);
+      border-radius: 16px;
+      overflow: hidden;
+      min-height: 220px;
+      background: #0d1121;
+      box-shadow: 0 8px 24px rgba(79,142,247,.16);
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+
+    .final-shot:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(79,142,247,.24);
+    }
+
+    .final-shot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s cubic-bezier(.4,0,.2,1);
+    }
+
+    .final-shot:hover img {
+      transform: scale(1.05);
+    }
+
+    .small-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .meta-grid { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: 1fr 1fr; }
+      .final-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .hero-banner { padding: 28px; border-radius: 20px; }
+      .process-grid { grid-template-columns: 1fr; }
+      .section-card { padding: 22px; border-radius: 18px; }
+    }
+    /* --- CSS UNTUK PROJECT LINKS --- */
+    .project-links {
+      display: flex;
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 28px;
+      border-radius: 99px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .btn-figma {
+      background: linear-gradient(135deg, #5987F8 0%, #9761FE 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(162, 89, 255, 0.25);
+    }
+    .btn-figma:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(162, 89, 255, 0.4);
+    }
+    .btn-code {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+    .btn-code:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--accent-blue);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(79, 142, 247, 0.15);
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <a href="main.html" class="brand">Home</a>
+      <a href="main.html#projects" class="back">Back to Projects</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-banner">
+        <div class="eyebrow">UI/UX Design</div>
+        <h1>Sea Amo — Mobile E-commerce</h1>
+        <p class="hero-desc">A seafood e-commerce mobile app concept designed to help fishermen sell their catch directly to consumers at fair market prices.</p>
+
+        <div class="meta-grid">
+          <div class="meta-card">
+            <div class="meta-label">Role</div>
+            <div class="meta-value">UI/UX Designer</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Tools</div>
+            <div class="meta-value">Figma, Useberry, Notion</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-label">Project Type</div>
+            <div class="meta-value">Academic Project</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <div class="container">
+      <section class="section-card">
+        <h2>Problem Statement</h2>
+        <p>Small-scale fishermen often rely on middlemen to sell their daily catch, which can result in significantly lower earnings compared to market prices. At the same time, consumers have limited access to fresh seafood directly from fishermen. This creates a gap between supply and demand. A digital marketplace can help fishermen sell their catch more independently while giving consumers easier access to fresh seafood.</p>
+      </section>
+
+      <section class="section-card">
+        <h2>Design Goals</h2>
+        <ul>
+          <li>Create a simple and accessible seafood marketplace for both fishermen and consumers.</li>
+          <li>Enable fishermen to list and sell their catch with transparent pricing.</li>
+          <li>Simplify the seafood purchasing process through an intuitive mobile interface.</li>
+          <li>Support faster product discovery with visual search and clear product categories.</li>
+        </ul>
+      </section>
+
+      <section class="section-card">
+        <h2>Design Process</h2>
+        <div class="process-grid">
+          <div class="step"><strong>Research</strong><span>Conducted interviews with fishermen, seafood consumers, and middlemen to understand how seafood transactions currently work.</span></div>
+          <div class="step"><strong>Wireframes</strong><span>Developed early wireframes focusing on product discovery, image-based search, and a simplified seafood purchasing flow to make the platform accessible for both buyers and fishermen.</span></div>
+          <div class="step"><strong>UI Exploration</strong><span>Designed a clean, ocean-inspired interface in Figma with clear visual hierarchy, intuitive navigation, and product-focused layouts to highlight seafood listings.</span></div>
+          <div class="step"><strong>Design Decisions</strong><span>Prioritized features that support direct transactions between fishermen and consumers, transparent pricing, and quick seafood discovery through visual search and structured product categories.</span></div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <h2>Final Design</h2>
+        <div class="final-grid">
+          <div class="final-shot"><img src="images/seaamofinal.png" alt="SeaAmo final marketplace screen" loading="lazy" /></div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <h2>Key Takeaways</h2>
+        <p>This project strengthened my ability to design for behavior change. I learned to balance visual appeal with fast usability, and to simplify feature scope so users can stay focused on daily wins.</p>
+        <div class="project-links">
+          <a href="https://www.figma.com/design/q4ayvwgsZHgmENj2o06ZPS/Sea-Amo?node-id=0-1&t=DmvAithgCG9th9tU-1" target="_blank" rel="noopener noreferrer" class="btn btn-figma">
+            View Figma
+          </a>
+          <a href="https://github.com/akmalmahesa/Project-Intuitix-" target="_blank" rel="noopener noreferrer" class="btn btn-code">
+            View Project Details
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

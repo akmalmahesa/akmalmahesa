@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malbelshop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-primary: #080b14;
+      --bg-card: #111827;
+      --text-primary: #f0f4ff;
+      --text-secondary: #9ba8c5;
+      --accent-blue: #4f8ef7;
+      --accent-cyan: #00d4ff;
+      --border: rgba(255,255,255,.08);
+      --shadow-card: 0 12px 34px rgba(0,0,0,.42);
+      --grad-main: linear-gradient(135deg, #4f8ef7 0%, #00d4ff 100%);
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(ellipse at top right, rgba(79,142,247,.14), transparent 45%),
+                  radial-gradient(ellipse at bottom left, rgba(0,212,255,.12), transparent 45%),
+                  var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .topbar { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(16px); background: rgba(8,11,20,.72); border-bottom: 1px solid var(--border); }
+    .topbar .container { min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { font-weight: 800; text-decoration: none; color: var(--text-primary); }
+    .back { text-decoration: none; font-size: .9rem; color: var(--accent-blue); border: 1px solid rgba(79,142,247,.35); border-radius: 999px; padding: 10px 18px; transition: .25s ease; }
+    .back:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(79,142,247,.2); }
+    .hero { padding: 90px 0 48px; }
+    .hero-banner { border-radius: 28px; border: 1px solid var(--border); background: linear-gradient(145deg, #101e36, #0e1b2f); padding: 42px; position: relative; overflow: hidden; box-shadow: var(--shadow-card); }
+    .hero-banner::before { content: ""; position: absolute; width: 260px; height: 260px; top: -90px; right: -70px; border-radius: 50%; background: radial-gradient(circle, rgba(79,142,247,.34), transparent 70%); }
+    .hero-banner::after { content: ""; position: absolute; width: 220px; height: 220px; bottom: -80px; left: -80px; border-radius: 50%; background: radial-gradient(circle, rgba(0,212,255,.28), transparent 70%); }
+    .eyebrow { display: inline-block; font-size: .73rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #86edff; margin-bottom: 14px; }
+    h1 { font-size: clamp(2rem, 5vw, 3.3rem); line-height: 1.15; margin-bottom: 10px; }
+    .hero-desc { max-width: 700px; color: var(--text-secondary); margin-bottom: 24px; }
+    .meta-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .meta-card { background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 14px; padding: 14px; transition: .25s ease; }
+    .meta-card:hover { border-color: rgba(79,142,247,.45); transform: translateY(-3px); }
+    .meta-label { font-size: .72rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: .08em; }
+    .meta-value { font-size: .95rem; font-weight: 600; margin-top: 4px; }
+    main { padding-bottom: 80px; }
+    .section-card { margin-top: 22px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 22px; padding: 28px; box-shadow: var(--shadow-card); transition: .25s ease; }
+    .section-card:hover { transform: translateY(-2px); border-color: rgba(79,142,247,.35); }
+    h2 { font-size: 1.4rem; margin-bottom: 12px; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    p { color: var(--text-secondary); }
+    ul { color: var(--text-secondary); padding-left: 18px; display: grid; gap: 8px; }
+    .process-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 10px; }
+    .step { border: 1px solid var(--border); border-radius: 14px; padding: 14px; background: rgba(255,255,255,.02); }
+    .step strong { display: block; margin-bottom: 6px; font-size: .92rem; }
+    .step span { color: var(--text-secondary); font-size: .86rem; }
+    .final-grid { margin-top: 10px; display: grid; grid-template-columns: 1fr; gap: 14px; }
+    .final-shot { border: 1px solid rgba(79,142,247,.24); border-radius: 16px; overflow: hidden; min-height: 220px; background: #0d1121; box-shadow: 0 8px 24px rgba(79,142,247,.16); transition: transform .35s ease, box-shadow .35s ease; }
+    .final-shot:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(79,142,247,.24); }
+    .final-shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s cubic-bezier(.4,0,.2,1); }
+    .final-shot:hover img { transform: scale(1.05); }
+    @media (max-width: 900px) { .meta-grid { grid-template-columns: 1fr; } .process-grid { grid-template-columns: 1fr 1fr; } .final-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { .hero-banner { padding: 28px; border-radius: 20px; } .process-grid { grid-template-columns: 1fr; } .section-card { padding: 22px; border-radius: 18px; } }
+    /* --- CSS UNTUK PROJECT LINKS --- */
+    .project-links {
+      display: flex;
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 28px;
+      border-radius: 99px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .btn-figma {
+      background: linear-gradient(135deg, #5987F8 0%, #9761FE 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(162, 89, 255, 0.25);
+    }
+    .btn-figma:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(162, 89, 255, 0.4);
+    }
+    .btn-code {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+    .btn-code:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--accent-blue);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(79, 142, 247, 0.15);
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <a href="main.html" class="brand">Home</a>
+      <a href="main.html#projects" class="back">Back to Projects</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-banner">
+        <div class="eyebrow">UI Design</div>
+        <h1>Malbelshop</h1>
+        <p class="hero-desc">A design of an e-commerce website for local small businesses, focusing on improving the user experience and increasing conversion rates.</p>
+        <div class="meta-grid">
+          <div class="meta-card"><div class="meta-label">Role</div><div class="meta-value">UI Designer</div></div>
+          <div class="meta-card"><div class="meta-label">Tools</div><div class="meta-value">Figma</div></div>
+          <div class="meta-card"><div class="meta-label">Project Type</div><div class="meta-value">Personal Project</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <div class="container">
+      <section class="section-card">
+        <h2>Problem Statement</h2>
+        <p>Many local small businesses (UMKM) still rely on offline sales or social media to sell their products, which can limit their reach and make purchasing less convenient for customers. Without a dedicated website, it can also be difficult to organize product information and streamline the buying process.</p>
+      </section>
+
+      <section class="section-card">
+        <h2>Design Goals</h2>
+        <ul>
+          <li>Create a simple e-commerce interface for a local UMKM business.</li>
+          <li>Help customers easily browse products and make purchases online.</li>
+          <li>Present different product categories clearly, including clothing, snacks, frozen food, and fruits.</li>
+          <li>Design a straightforward checkout flow to support quick purchases.</li>
+        </ul>
+      </section>
+
+      <section class="section-card">
+        <h2>Design Process</h2>
+        <div class="process-grid">
+          <div class="step"><strong>Research</strong><span>Observed common structures used in small e-commerce websites and analyzed how product information and checkout flows are typically organized.</span></div>
+          <div class="step"><strong>Wireframes</strong><span>Created quick wireframes focusing on three main pages: the landing page, product view, and checkout flow.</span></div>
+          <div class="step"><strong>UI Exploration</strong><span>Designed the interface in Figma with a simple and friendly layout that highlights product categories and supports easy navigation.</span></div>
+          <div class="step"><strong>Design Decisions</strong><span>Focused on the most essential pages needed for a small online store: a landing page for product discovery, a product view page for detailed information, and a checkout page for completing purchases.</span></div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <h2>Final Design</h2>
+        <div class="final-grid">
+          <div class="final-shot"><img src="images/malbelshopp.png" alt="Malbelshop final design" loading="lazy" /></div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <h2>Key Takeaways</h2>
+        <p>This project helped me practice designing a simple e-commerce interface within a short timeframe. I focused on prioritizing essential pages and creating a clear shopping flow for users.</p>
+        <div class="project-links">
+          <a href="https://www.figma.com/design/4ZoeDlfJZ3e4b31rJMUuDf/Landing-Page-Malbelshop?node-id=1-2&t=J0oW2tXiaq9MzKNz-1" target="_blank" rel="noopener noreferrer" class="btn btn-figma">
+            View Figma
+          </a>
+        </div>
+      </section>
+  </main>
+</body>
+</html>
